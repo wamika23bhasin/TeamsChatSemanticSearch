@@ -304,18 +304,6 @@
   color: #6b7280;
 }
 
-.resolved-badge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #16a34a; /* Green color */
-  background-color: #dcfce7;
-  padding: 6px 12px;
-  border-radius: 9999px; /* Pill shape */
-  font-size: 13px;
-  font-weight: 600;
-}
-
 .related-card-desc {
   margin: 0;
   color: #4b5563;
@@ -356,4 +344,167 @@
 
 .view-source-btn:hover {
   background: darkblue;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Teams-like Modal */
+.teams-modal {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e1dfdd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f3f2f1;
+}
+
+.modal-header-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #323130;
+}
+
+.modal-date {
+  font-size: 13px;
+  color: #605e5c;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #605e5c;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.close-btn:hover {
+  background-color: #e1dfdd;
+  color: #323130;
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+  background-color: #fff;
+}
+
+.chat-message {
+  display: flex;
+  margin-bottom: 24px;
+  gap: 12px;
+}
+
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #0066cc;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-content {
+  flex: 1;
+}
+
+.chat-meta {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.chat-author {
+  font-weight: 600;
+  color: #323130;
+  font-size: 15px;
+}
+
+.chat-time {
+  color: #605e5c;
+  font-size: 12px;
+}
+
+.chat-bubble p {
+  margin: 0;
+  line-height: 1.5;
+  color: #323130;
+  font-size: 15px;
+}
+
+.question-message .chat-avatar {
+  background-color: #498205; /* green for question */
+}
+
+.chat-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 24px 0;
+  color: #605e5c;
+  font-size: 13px;
+}
+
+.chat-divider::before,
+.chat-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e1dfdd;
+}
+
+.chat-divider span {
+  padding: 0 12px;
+}
+
+.no-replies {
+  text-align: center;
+  color: #605e5c;
+  font-style: italic;
+  margin-top: 20px;
 }

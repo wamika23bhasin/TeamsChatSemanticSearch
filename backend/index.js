@@ -25,6 +25,10 @@ app.get('/api/test-db', async (req, res) => {
   }
 });
 
+// Search route
+const searchRouter = require('./src/search');
+app.use('/api/v1/knowledge/search', searchRouter);
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

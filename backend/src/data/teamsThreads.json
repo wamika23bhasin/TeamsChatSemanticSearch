@@ -1,1659 +1,1190 @@
 [
-    {
-      "externalThreadId": "teams-thread-001",
-      "channelName": "Web Platform Support",
-      "question": "Why do impersonated users receive 403 on the home page?",
-      "author": "Aarav Mehta",
-      "createdAt": "2026-09-01T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-001-01",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-01T09:00:00Z",
-          "text": "I reproduced a blank page after impersonation. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-001-02",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-01T09:30:00Z",
-          "text": "I reviewed the homepage ACL script. The observations match the original report.",
-          "attachments": [
-            {
-              "type": "image",
-              "name": "evidence-001.png",
-              "description": "Screenshot showing a blank page after impersonation."
-            }
-          ]
-        },
-        {
-          "id": "reply-001-03",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-01T10:00:00Z",
-          "text": "Additional testing shows normal direct login still working, while the control scenario completes normally."
-        }
-      ],
-      "resolution": "Update the ACL script to recognize impersonated sessions and add regression tests for both direct and impersonated users.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/web-platform-support/threads/teams-thread-001",
-      "sourceUpdatedAt": "2026-09-01T10:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-002",
-      "channelName": "Web Platform Support",
-      "question": "Dashboard is forbidden after an administrator impersonates a user",
-      "author": "Nisha Rao",
-      "createdAt": "2026-09-02T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-002-01",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-02T09:00:00Z",
-          "text": "I reproduced a blank page after impersonation. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-002-02",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-02T09:30:00Z",
-          "text": "I reviewed the homepage ACL script. The observations match the original report."
-        },
-        {
-          "id": "reply-002-03",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-02T10:00:00Z",
-          "text": "Additional testing shows normal direct login still working, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-002-04",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-02T10:30:00Z",
-          "text": "The logs point toward this cause: the ACL condition reads direct-session roles but does not handle impersonation context."
-        },
-        {
-          "id": "reply-002-05",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-02T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-002-06",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-02T11:30:00Z",
-          "text": "Confirmed with a second account. I also checked roles carried by the impersonation token, and the same pattern is present."
-        },
-        {
-          "id": "reply-002-07",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-02T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        }
-      ],
-      "resolution": "Update the ACL script to recognize impersonated sessions and add regression tests for both direct and impersonated users.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/web-platform-support/threads/teams-thread-002",
-      "sourceUpdatedAt": "2026-09-02T12:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-003",
-      "channelName": "Web Platform Support",
-      "question": "Blank landing page and 403 response during user impersonation",
-      "author": "Raj Patel",
-      "createdAt": "2026-09-03T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-003-01",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-03T09:00:00Z",
-          "text": "I reproduced a blank page after impersonation. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-003-02",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-03T09:30:00Z",
-          "text": "I reviewed the homepage ACL script. The observations match the original report."
-        },
-        {
-          "id": "reply-003-03",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-03T10:00:00Z",
-          "text": "Additional testing shows normal direct login still working, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-003-04",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-03T10:30:00Z",
-          "text": "The logs point toward this cause: the ACL condition reads direct-session roles but does not handle impersonation context."
-        },
-        {
-          "id": "reply-003-05",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-03T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-003-06",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-03T11:30:00Z",
-          "text": "Confirmed with a second account. I also checked roles carried by the impersonation token, and the same pattern is present."
-        },
-        {
-          "id": "reply-003-07",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-03T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-003-08",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-03T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-003-09",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-03T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-003-10",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-03T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-003-11",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-03T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        },
-        {
-          "id": "reply-003-12",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-03T14:30:00Z",
-          "text": "The support team confirmed that no new reports have appeared since the test deployment."
-        }
-      ],
-      "resolution": "Update the ACL script to recognize impersonated sessions and add regression tests for both direct and impersonated users.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/web-platform-support/threads/teams-thread-003",
-      "sourceUpdatedAt": "2026-09-03T14:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-004",
-      "channelName": "Identity and Access",
-      "question": "Users are repeatedly redirected to sign-in after the SSO change",
-      "author": "Sarah Connor",
-      "createdAt": "2026-09-04T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-004-01",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-04T09:00:00Z",
-          "text": "I reproduced successful authentication followed by another login redirect. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-004-02",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-04T09:30:00Z",
-          "text": "I compared cookie attributes between environments. The observations match the original report."
-        },
-        {
-          "id": "reply-004-03",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-04T10:00:00Z",
-          "text": "Additional testing shows the problem affecting only the new identity provider, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-004-04",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-04T10:30:00Z",
-          "text": "The logs point toward this cause: the session cookie is marked SameSite=Strict and is dropped during the cross-site identity-provider callback."
-        },
-        {
-          "id": "reply-004-05",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-04T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        }
-      ],
-      "resolution": "Set the authentication cookie to SameSite=None with Secure enabled and retest the SSO callback flow.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/identity-and-access/threads/teams-thread-004",
-      "sourceUpdatedAt": "2026-09-04T11:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-005",
-      "channelName": "Identity and Access",
-      "question": "Login loop started after enabling the new identity provider",
-      "author": "Mike Johnson",
-      "createdAt": "2026-09-05T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-005-01",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-05T09:00:00Z",
-          "text": "I reproduced successful authentication followed by another login redirect. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-005-02",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-05T09:30:00Z",
-          "text": "I compared cookie attributes between environments. The observations match the original report."
-        },
-        {
-          "id": "reply-005-03",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-05T10:00:00Z",
-          "text": "Additional testing shows the problem affecting only the new identity provider, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-005-04",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-05T10:30:00Z",
-          "text": "The logs point toward this cause: the session cookie is marked SameSite=Strict and is dropped during the cross-site identity-provider callback."
-        },
-        {
-          "id": "reply-005-05",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-05T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-005-06",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-05T11:30:00Z",
-          "text": "Confirmed with a second account. I also verified the callback and redirect URLs, and the same pattern is present."
-        },
-        {
-          "id": "reply-005-07",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-05T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-005-08",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-05T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-005-09",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-05T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        }
-      ],
-      "resolution": "Set the authentication cookie to SameSite=None with Secure enabled and retest the SSO callback flow.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/identity-and-access/threads/teams-thread-005",
-      "sourceUpdatedAt": "2026-09-05T13:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-006",
-      "channelName": "Identity and Access",
-      "question": "SSO succeeds but the application sends users back to the login page",
-      "author": "Priya Shah",
-      "createdAt": "2026-09-06T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-006-01",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-06T09:00:00Z",
-          "text": "I reproduced successful authentication followed by another login redirect. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-006-02",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-06T09:30:00Z",
-          "text": "I compared cookie attributes between environments. The observations match the original report.",
-          "attachments": [
-            {
-              "type": "image",
-              "name": "evidence-006.png",
-              "description": "Screenshot showing successful authentication followed by another login redirect."
-            }
-          ]
-        },
-        {
-          "id": "reply-006-03",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-06T10:00:00Z",
-          "text": "Additional testing shows the problem affecting only the new identity provider, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-006-04",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-06T10:30:00Z",
-          "text": "The logs point toward this cause: the session cookie is marked SameSite=Strict and is dropped during the cross-site identity-provider callback."
-        },
-        {
-          "id": "reply-006-05",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-06T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-006-06",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-06T11:30:00Z",
-          "text": "Confirmed with a second account. I also verified the callback and redirect URLs, and the same pattern is present."
-        },
-        {
-          "id": "reply-006-07",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-06T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-006-08",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-06T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-006-09",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-06T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-006-10",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-06T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-006-11",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-06T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        },
-        {
-          "id": "reply-006-12",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-06T14:30:00Z",
-          "text": "The support team confirmed that no new reports have appeared since the test deployment."
-        },
-        {
-          "id": "reply-006-13",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-06T15:00:00Z",
-          "text": "Final verification completed. Resolution: Set the authentication cookie to SameSite=None with Secure enabled and retest the SSO callback flow."
-        },
-        {
-          "id": "reply-006-14",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-06T15:30:00Z",
-          "text": "I added an automated test that reproduces the original failure and validates the corrected behavior."
-        },
-        {
-          "id": "reply-006-15",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-06T16:00:00Z",
-          "text": "Closing the investigation after confirming the fix across the affected environments."
-        }
-      ],
-      "resolution": "Set the authentication cookie to SameSite=None with Secure enabled and retest the SSO callback flow.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/identity-and-access/threads/teams-thread-006",
-      "sourceUpdatedAt": "2026-09-06T16:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-007",
-      "channelName": "Search Operations",
-      "question": "Case search keeps loading and never displays results",
-      "author": "Daniel Kim",
-      "createdAt": "2026-09-07T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-007-01",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-07T09:00:00Z",
-          "text": "I reproduced the search spinner continuing indefinitely. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-007-02",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-07T09:30:00Z",
-          "text": "I ran the generated SQL directly. The observations match the original report."
-        },
-        {
-          "id": "reply-007-03",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-07T10:00:00Z",
-          "text": "Additional testing shows unfiltered searches completing normally, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-007-04",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-07T10:30:00Z",
-          "text": "The logs point toward this cause: the date-filter query performs a sequential scan because the expected composite index is missing."
-        }
-      ],
-      "resolution": "Create the composite search index, analyze the table and add a timeout-safe error response to the API.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/search-operations/threads/teams-thread-007",
-      "sourceUpdatedAt": "2026-09-07T10:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-008",
-      "channelName": "Search Operations",
-      "question": "Global search times out for queries containing a date filter",
-      "author": "Elena Garcia",
-      "createdAt": "2026-09-08T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-008-01",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-08T09:00:00Z",
-          "text": "I reproduced the search spinner continuing indefinitely. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-008-02",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-08T09:30:00Z",
-          "text": "I ran the generated SQL directly. The observations match the original report."
-        },
-        {
-          "id": "reply-008-03",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-08T10:00:00Z",
-          "text": "Additional testing shows unfiltered searches completing normally, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-008-04",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-08T10:30:00Z",
-          "text": "The logs point toward this cause: the date-filter query performs a sequential scan because the expected composite index is missing."
-        },
-        {
-          "id": "reply-008-05",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-08T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-008-06",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-08T11:30:00Z",
-          "text": "Confirmed with a second account. I also compared filtered and unfiltered query plans, and the same pattern is present."
-        },
-        {
-          "id": "reply-008-07",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-08T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-008-08",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-08T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-008-09",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-08T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-008-10",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-08T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-008-11",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-08T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        }
-      ],
-      "resolution": "Create the composite search index, analyze the table and add a timeout-safe error response to the API.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/search-operations/threads/teams-thread-008",
-      "sourceUpdatedAt": "2026-09-08T14:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-009",
-      "channelName": "Search Operations",
-      "question": "Search results remain blank even though matching cases exist",
-      "author": "Aarav Mehta",
-      "createdAt": "2026-09-09T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-009-01",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-09T09:00:00Z",
-          "text": "I reproduced the search spinner continuing indefinitely. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-009-02",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-09T09:30:00Z",
-          "text": "I ran the generated SQL directly. The observations match the original report."
-        },
-        {
-          "id": "reply-009-03",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-09T10:00:00Z",
-          "text": "Additional testing shows unfiltered searches completing normally, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-009-04",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-09T10:30:00Z",
-          "text": "The logs point toward this cause: the date-filter query performs a sequential scan because the expected composite index is missing."
-        },
-        {
-          "id": "reply-009-05",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-09T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-009-06",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-09T11:30:00Z",
-          "text": "Confirmed with a second account. I also compared filtered and unfiltered query plans, and the same pattern is present."
-        }
-      ],
-      "resolution": "Create the composite search index, analyze the table and add a timeout-safe error response to the API.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/search-operations/threads/teams-thread-009",
-      "sourceUpdatedAt": "2026-09-09T11:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-010",
-      "channelName": "File Services",
-      "question": "PDF attachment upload finishes without showing the new file",
-      "author": "Nisha Rao",
-      "createdAt": "2026-09-10T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-010-01",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-10T09:00:00Z",
-          "text": "I reproduced the progress indicator reaching 100 percent. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-010-02",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-10T09:30:00Z",
-          "text": "I inspected multipart request headers. The observations match the original report."
-        },
-        {
-          "id": "reply-010-03",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-10T10:00:00Z",
-          "text": "Additional testing shows an upload-service validation error in server logs, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-010-04",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-10T10:30:00Z",
-          "text": "The logs point toward this cause: the upload gateway applies inconsistent size and filename validation before storage."
-        },
-        {
-          "id": "reply-010-05",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-10T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-010-06",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-10T11:30:00Z",
-          "text": "Confirmed with a second account. I also retried with a simplified filename, and the same pattern is present."
-        },
-        {
-          "id": "reply-010-07",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-10T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-010-08",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-10T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-010-09",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-10T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-010-10",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-10T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-010-11",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-10T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        },
-        {
-          "id": "reply-010-12",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-10T14:30:00Z",
-          "text": "The support team confirmed that no new reports have appeared since the test deployment."
-        },
-        {
-          "id": "reply-010-13",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-10T15:00:00Z",
-          "text": "Final verification completed. Resolution: Align gateway validation with the application limits, sanitize filenames and return visible validation errors to the UI."
-        },
-        {
-          "id": "reply-010-14",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-10T15:30:00Z",
-          "text": "I added an automated test that reproduces the original failure and validates the corrected behavior."
-        }
-      ],
-      "resolution": "Align gateway validation with the application limits, sanitize filenames and return visible validation errors to the UI.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/file-services/threads/teams-thread-010",
-      "sourceUpdatedAt": "2026-09-10T15:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-011",
-      "channelName": "File Services",
-      "question": "Large attachments silently fail near the end of upload",
-      "author": "Raj Patel",
-      "createdAt": "2026-09-11T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-011-01",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-11T09:00:00Z",
-          "text": "I reproduced the progress indicator reaching 100 percent. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-011-02",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-11T09:30:00Z",
-          "text": "I inspected multipart request headers. The observations match the original report.",
-          "attachments": [
-            {
-              "type": "image",
-              "name": "evidence-011.png",
-              "description": "Screenshot showing the progress indicator reaching 100 percent."
-            }
-          ]
-        },
-        {
-          "id": "reply-011-03",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-11T10:00:00Z",
-          "text": "Additional testing shows an upload-service validation error in server logs, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-011-04",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-11T10:30:00Z",
-          "text": "The logs point toward this cause: the upload gateway applies inconsistent size and filename validation before storage."
-        },
-        {
-          "id": "reply-011-05",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-11T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-011-06",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-11T11:30:00Z",
-          "text": "Confirmed with a second account. I also retried with a simplified filename, and the same pattern is present."
-        },
-        {
-          "id": "reply-011-07",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-11T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-011-08",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-11T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        }
-      ],
-      "resolution": "Align gateway validation with the application limits, sanitize filenames and return visible validation errors to the UI.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/file-services/threads/teams-thread-011",
-      "sourceUpdatedAt": "2026-09-11T12:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-012",
-      "channelName": "File Services",
-      "question": "Uploaded documents disappear when their names contain special characters",
-      "author": "Sarah Connor",
-      "createdAt": "2026-09-12T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-012-01",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-12T09:00:00Z",
-          "text": "I reproduced the progress indicator reaching 100 percent. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-012-02",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-12T09:30:00Z",
-          "text": "I inspected multipart request headers. The observations match the original report."
-        },
-        {
-          "id": "reply-012-03",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-12T10:00:00Z",
-          "text": "Additional testing shows an upload-service validation error in server logs, while the control scenario completes normally."
-        }
-      ],
-      "resolution": "Align gateway validation with the application limits, sanitize filenames and return visible validation errors to the UI.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/file-services/threads/teams-thread-012",
-      "sourceUpdatedAt": "2026-09-12T10:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-013",
-      "channelName": "Notifications",
-      "question": "Email notifications are delivered twice after a case is updated",
-      "author": "Mike Johnson",
-      "createdAt": "2026-09-13T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-013-01",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-13T09:00:00Z",
-          "text": "I reproduced two messages with the same case number. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-013-02",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-13T09:30:00Z",
-          "text": "I checked active worker replicas. The observations match the original report."
-        },
-        {
-          "id": "reply-013-03",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-13T10:00:00Z",
-          "text": "Additional testing shows the issue beginning after a worker restart, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-013-04",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-13T10:30:00Z",
-          "text": "The logs point toward this cause: a restarted worker consumes the event again before its earlier delivery acknowledgement is committed."
-        },
-        {
-          "id": "reply-013-05",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-13T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-013-06",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-13T11:30:00Z",
-          "text": "Confirmed with a second account. I also reviewed retry and acknowledgement logs, and the same pattern is present."
-        },
-        {
-          "id": "reply-013-07",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-13T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-013-08",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-13T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-013-09",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-13T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-013-10",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-13T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-013-11",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-13T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        },
-        {
-          "id": "reply-013-12",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-13T14:30:00Z",
-          "text": "The support team confirmed that no new reports have appeared since the test deployment."
-        },
-        {
-          "id": "reply-013-13",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-13T15:00:00Z",
-          "text": "Final verification completed. Resolution: Add an idempotency key for each notification event and commit acknowledgement state transactionally."
-        }
-      ],
-      "resolution": "Add an idempotency key for each notification event and commit acknowledgement state transactionally.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/notifications/threads/teams-thread-013",
-      "sourceUpdatedAt": "2026-09-13T15:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-014",
-      "channelName": "Notifications",
-      "question": "Assignees receive duplicate messages for a single status change",
-      "author": "Priya Shah",
-      "createdAt": "2026-09-14T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-014-01",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-14T09:00:00Z",
-          "text": "I reproduced two messages with the same case number. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-014-02",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-14T09:30:00Z",
-          "text": "I checked active worker replicas. The observations match the original report."
-        },
-        {
-          "id": "reply-014-03",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-14T10:00:00Z",
-          "text": "Additional testing shows the issue beginning after a worker restart, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-014-04",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-14T10:30:00Z",
-          "text": "The logs point toward this cause: a restarted worker consumes the event again before its earlier delivery acknowledgement is committed."
-        },
-        {
-          "id": "reply-014-05",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-14T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        }
-      ],
-      "resolution": "Add an idempotency key for each notification event and commit acknowledgement state transactionally.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/notifications/threads/teams-thread-014",
-      "sourceUpdatedAt": "2026-09-14T11:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-015",
-      "channelName": "Notifications",
-      "question": "One case update creates multiple outbound notification events",
-      "author": "Daniel Kim",
-      "createdAt": "2026-09-15T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-015-01",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-15T09:00:00Z",
-          "text": "I reproduced two messages with the same case number. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-015-02",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-15T09:30:00Z",
-          "text": "I checked active worker replicas. The observations match the original report."
-        },
-        {
-          "id": "reply-015-03",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-15T10:00:00Z",
-          "text": "Additional testing shows the issue beginning after a worker restart, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-015-04",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-15T10:30:00Z",
-          "text": "The logs point toward this cause: a restarted worker consumes the event again before its earlier delivery acknowledgement is committed."
-        },
-        {
-          "id": "reply-015-05",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-15T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-015-06",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-15T11:30:00Z",
-          "text": "Confirmed with a second account. I also reviewed retry and acknowledgement logs, and the same pattern is present."
-        },
-        {
-          "id": "reply-015-07",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-15T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-015-08",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-15T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-015-09",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-15T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-015-10",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-15T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        }
-      ],
-      "resolution": "Add an idempotency key for each notification event and commit acknowledgement state transactionally.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/notifications/threads/teams-thread-015",
-      "sourceUpdatedAt": "2026-09-15T13:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-016",
-      "channelName": "Performance Help",
-      "question": "Case details take more than ten seconds to open",
-      "author": "Elena Garcia",
-      "createdAt": "2026-09-16T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-016-01",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-16T09:00:00Z",
-          "text": "I reproduced slow record loading. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-016-02",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-16T09:30:00Z",
-          "text": "I measured the JSON aggregation query. The observations match the original report.",
-          "attachments": [
-            {
-              "type": "image",
-              "name": "evidence-016.png",
-              "description": "Screenshot showing slow record loading."
-            }
-          ]
-        },
-        {
-          "id": "reply-016-03",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-16T10:00:00Z",
-          "text": "Additional testing shows performance worsening as work-note count grows, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-016-04",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-16T10:30:00Z",
-          "text": "The logs point toward this cause: the endpoint loads and serializes every historical work note even though the UI initially shows only the latest entries."
-        },
-        {
-          "id": "reply-016-05",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-16T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-016-06",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-16T11:30:00Z",
-          "text": "Confirmed with a second account. I also tested the same record without its work notes, and the same pattern is present."
-        },
-        {
-          "id": "reply-016-07",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-16T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        }
-      ],
-      "resolution": "Paginate work notes, fetch the initial page separately and add an index supporting the note ordering.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/performance-help/threads/teams-thread-016",
-      "sourceUpdatedAt": "2026-09-16T12:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-017",
-      "channelName": "Performance Help",
-      "question": "Opening a record becomes slow when it has many work notes",
-      "author": "Aarav Mehta",
-      "createdAt": "2026-09-17T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-017-01",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-17T09:00:00Z",
-          "text": "I reproduced slow record loading. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-017-02",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-17T09:30:00Z",
-          "text": "I measured the JSON aggregation query. The observations match the original report."
-        },
-        {
-          "id": "reply-017-03",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-17T10:00:00Z",
-          "text": "Additional testing shows performance worsening as work-note count grows, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-017-04",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-17T10:30:00Z",
-          "text": "The logs point toward this cause: the endpoint loads and serializes every historical work note even though the UI initially shows only the latest entries."
-        },
-        {
-          "id": "reply-017-05",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-17T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-017-06",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-17T11:30:00Z",
-          "text": "Confirmed with a second account. I also tested the same record without its work notes, and the same pattern is present."
-        },
-        {
-          "id": "reply-017-07",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-17T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-017-08",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-17T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-017-09",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-17T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-017-10",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-17T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-017-11",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-17T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        },
-        {
-          "id": "reply-017-12",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-17T14:30:00Z",
-          "text": "The support team confirmed that no new reports have appeared since the test deployment."
-        },
-        {
-          "id": "reply-017-13",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-17T15:00:00Z",
-          "text": "Final verification completed. Resolution: Paginate work notes, fetch the initial page separately and add an index supporting the note ordering."
-        },
-        {
-          "id": "reply-017-14",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-17T15:30:00Z",
-          "text": "I added an automated test that reproduces the original failure and validates the corrected behavior."
-        },
-        {
-          "id": "reply-017-15",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-17T16:00:00Z",
-          "text": "Closing the investigation after confirming the fix across the affected environments."
-        }
-      ],
-      "resolution": "Paginate work notes, fetch the initial page separately and add an index supporting the note ordering.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/performance-help/threads/teams-thread-017",
-      "sourceUpdatedAt": "2026-09-17T16:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-018",
-      "channelName": "Performance Help",
-      "question": "The details API response is delayed for older cases",
-      "author": "Nisha Rao",
-      "createdAt": "2026-09-18T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-018-01",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-18T09:00:00Z",
-          "text": "I reproduced slow record loading. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-018-02",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-18T09:30:00Z",
-          "text": "I measured the JSON aggregation query. The observations match the original report."
-        },
-        {
-          "id": "reply-018-03",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-18T10:00:00Z",
-          "text": "Additional testing shows performance worsening as work-note count grows, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-018-04",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-18T10:30:00Z",
-          "text": "The logs point toward this cause: the endpoint loads and serializes every historical work note even though the UI initially shows only the latest entries."
-        }
-      ],
-      "resolution": "Paginate work notes, fetch the initial page separately and add an index supporting the note ordering.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/performance-help/threads/teams-thread-018",
-      "sourceUpdatedAt": "2026-09-18T10:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-019",
-      "channelName": "Release Engineering",
-      "question": "Production still shows the previous frontend after deployment",
-      "author": "Raj Patel",
-      "createdAt": "2026-09-19T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-019-01",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-19T09:00:00Z",
-          "text": "I reproduced a successful deployment with stale UI. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-019-02",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-19T09:30:00Z",
-          "text": "I inspected response cache headers. The observations match the original report."
-        },
-        {
-          "id": "reply-019-03",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-19T10:00:00Z",
-          "text": "Additional testing shows the new container running on the host, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-019-04",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-19T10:30:00Z",
-          "text": "The logs point toward this cause: the CDN caches index.html longer than intended and continues referencing an older bundle."
-        },
-        {
-          "id": "reply-019-05",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-19T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-019-06",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-19T11:30:00Z",
-          "text": "Confirmed with a second account. I also compared bundle names in the container and browser, and the same pattern is present."
-        },
-        {
-          "id": "reply-019-07",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-19T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-019-08",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-19T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-019-09",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-19T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-019-10",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-19T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-019-11",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-19T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        },
-        {
-          "id": "reply-019-12",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-19T14:30:00Z",
-          "text": "The support team confirmed that no new reports have appeared since the test deployment."
-        }
-      ],
-      "resolution": "Disable long-term caching for index.html, retain immutable caching for hashed assets and invalidate the CDN entry.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/release-engineering/threads/teams-thread-019",
-      "sourceUpdatedAt": "2026-09-19T14:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-020",
-      "channelName": "Release Engineering",
-      "question": "New UI changes are missing although the pipeline succeeded",
-      "author": "Sarah Connor",
-      "createdAt": "2026-09-20T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-020-01",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-20T09:00:00Z",
-          "text": "I reproduced a successful deployment with stale UI. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-020-02",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-20T09:30:00Z",
-          "text": "I inspected response cache headers. The observations match the original report."
-        },
-        {
-          "id": "reply-020-03",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-20T10:00:00Z",
-          "text": "Additional testing shows the new container running on the host, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-020-04",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-20T10:30:00Z",
-          "text": "The logs point toward this cause: the CDN caches index.html longer than intended and continues referencing an older bundle."
-        },
-        {
-          "id": "reply-020-05",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-20T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-020-06",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-20T11:30:00Z",
-          "text": "Confirmed with a second account. I also compared bundle names in the container and browser, and the same pattern is present."
-        }
-      ],
-      "resolution": "Disable long-term caching for index.html, retain immutable caching for hashed assets and invalidate the CDN entry.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/release-engineering/threads/teams-thread-020",
-      "sourceUpdatedAt": "2026-09-20T11:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-021",
-      "channelName": "Release Engineering",
-      "question": "Browser loads an older JavaScript bundle after the latest release",
-      "author": "Mike Johnson",
-      "createdAt": "2026-09-21T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-021-01",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-21T09:00:00Z",
-          "text": "I reproduced a successful deployment with stale UI. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-021-02",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-21T09:30:00Z",
-          "text": "I inspected response cache headers. The observations match the original report.",
-          "attachments": [
-            {
-              "type": "image",
-              "name": "evidence-021.png",
-              "description": "Screenshot showing a successful deployment with stale UI."
-            }
-          ]
-        },
-        {
-          "id": "reply-021-03",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-21T10:00:00Z",
-          "text": "Additional testing shows the new container running on the host, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-021-04",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-21T10:30:00Z",
-          "text": "The logs point toward this cause: the CDN caches index.html longer than intended and continues referencing an older bundle."
-        },
-        {
-          "id": "reply-021-05",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-21T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-021-06",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-21T11:30:00Z",
-          "text": "Confirmed with a second account. I also compared bundle names in the container and browser, and the same pattern is present."
-        },
-        {
-          "id": "reply-021-07",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-21T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-021-08",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-21T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-021-09",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-21T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        }
-      ],
-      "resolution": "Disable long-term caching for index.html, retain immutable caching for hashed assets and invalidate the CDN entry.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/release-engineering/threads/teams-thread-021",
-      "sourceUpdatedAt": "2026-09-21T13:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-022",
-      "channelName": "Reporting and Analytics",
-      "question": "Exported CSV contains fewer rows than the report preview",
-      "author": "Priya Shah",
-      "createdAt": "2026-09-22T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-022-01",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-22T09:00:00Z",
-          "text": "I reproduced the preview count exceeding the exported row count. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-022-02",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-22T09:30:00Z",
-          "text": "I reviewed export pagination logs. The observations match the original report."
-        },
-        {
-          "id": "reply-022-03",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-22T10:00:00Z",
-          "text": "Additional testing shows no visible error during download, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-022-04",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-22T10:30:00Z",
-          "text": "The logs point toward this cause: the export worker stops after the default pagination limit instead of requesting all result pages."
-        },
-        {
-          "id": "reply-022-05",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-22T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-022-06",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-22T11:30:00Z",
-          "text": "Confirmed with a second account. I also tested several result sizes, and the same pattern is present."
-        },
-        {
-          "id": "reply-022-07",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-22T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-022-08",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-22T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-022-09",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-22T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-022-10",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-22T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-022-11",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-22T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        },
-        {
-          "id": "reply-022-12",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-22T14:30:00Z",
-          "text": "The support team confirmed that no new reports have appeared since the test deployment."
-        },
-        {
-          "id": "reply-022-13",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-22T15:00:00Z",
-          "text": "Final verification completed. Resolution: Process every page with a continuation token and stream the CSV so large exports do not exhaust memory."
-        },
-        {
-          "id": "reply-022-14",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-22T15:30:00Z",
-          "text": "I added an automated test that reproduces the original failure and validates the corrected behavior."
-        }
-      ],
-      "resolution": "Process every page with a continuation token and stream the CSV so large exports do not exhaust memory.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/reporting-and-analytics/threads/teams-thread-022",
-      "sourceUpdatedAt": "2026-09-22T15:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-023",
-      "channelName": "Reporting and Analytics",
-      "question": "Report download stops at ten thousand records",
-      "author": "Daniel Kim",
-      "createdAt": "2026-09-23T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-023-01",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-23T09:00:00Z",
-          "text": "I reproduced the preview count exceeding the exported row count. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-023-02",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-23T09:30:00Z",
-          "text": "I reviewed export pagination logs. The observations match the original report."
-        },
-        {
-          "id": "reply-023-03",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-23T10:00:00Z",
-          "text": "Additional testing shows no visible error during download, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-023-04",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-23T10:30:00Z",
-          "text": "The logs point toward this cause: the export worker stops after the default pagination limit instead of requesting all result pages."
-        },
-        {
-          "id": "reply-023-05",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-23T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-023-06",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-23T11:30:00Z",
-          "text": "Confirmed with a second account. I also tested several result sizes, and the same pattern is present."
-        },
-        {
-          "id": "reply-023-07",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-23T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-023-08",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-23T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        }
-      ],
-      "resolution": "Process every page with a continuation token and stream the CSV so large exports do not exhaust memory.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/reporting-and-analytics/threads/teams-thread-023",
-      "sourceUpdatedAt": "2026-09-23T12:30:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-024",
-      "channelName": "Reporting and Analytics",
-      "question": "CSV export ignores records from the final result pages",
-      "author": "Elena Garcia",
-      "createdAt": "2026-09-24T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-024-01",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-24T09:00:00Z",
-          "text": "I reproduced the preview count exceeding the exported row count. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-024-02",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-24T09:30:00Z",
-          "text": "I reviewed export pagination logs. The observations match the original report."
-        },
-        {
-          "id": "reply-024-03",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-24T10:00:00Z",
-          "text": "Additional testing shows no visible error during download, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-024-04",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-24T10:30:00Z",
-          "text": "The logs point toward this cause: the export worker stops after the default pagination limit instead of requesting all result pages."
-        },
-        {
-          "id": "reply-024-05",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-24T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        },
-        {
-          "id": "reply-024-06",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-24T11:30:00Z",
-          "text": "Confirmed with a second account. I also tested several result sizes, and the same pattern is present."
-        },
-        {
-          "id": "reply-024-07",
-          "author": "Daniel Kim",
-          "createdAt": "2026-09-24T12:00:00Z",
-          "text": "A temporary workaround is available, but it should not replace the permanent correction."
-        },
-        {
-          "id": "reply-024-08",
-          "author": "Elena Garcia",
-          "createdAt": "2026-09-24T12:30:00Z",
-          "text": "The proposed fix is ready in the test environment. The previously failing scenario now succeeds."
-        },
-        {
-          "id": "reply-024-09",
-          "author": "Aarav Mehta",
-          "createdAt": "2026-09-24T13:00:00Z",
-          "text": "Regression testing should cover the normal path as well as the reported edge case."
-        },
-        {
-          "id": "reply-024-10",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-24T13:30:00Z",
-          "text": "I checked the monitoring data after the change and did not see the earlier failure pattern."
-        },
-        {
-          "id": "reply-024-11",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-24T14:00:00Z",
-          "text": "We should document the configuration difference that allowed this issue to reach production."
-        }
-      ],
-      "resolution": "Process every page with a continuation token and stream the CSV so large exports do not exhaust memory.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/reporting-and-analytics/threads/teams-thread-024",
-      "sourceUpdatedAt": "2026-09-24T14:00:00Z"
-    },
-    {
-      "externalThreadId": "teams-thread-025",
-      "channelName": "Mobile Experience",
-      "question": "Mobile users cannot submit a case when the description is long",
-      "author": "Aarav Mehta",
-      "createdAt": "2026-09-01T08:30:00Z",
-      "replies": [
-        {
-          "id": "reply-025-01",
-          "author": "Nisha Rao",
-          "createdAt": "2026-09-01T09:00:00Z",
-          "text": "I reproduced the submit button remaining disabled. It happens consistently in the test environment."
-        },
-        {
-          "id": "reply-025-02",
-          "author": "Raj Patel",
-          "createdAt": "2026-09-01T09:30:00Z",
-          "text": "I compared mobile and desktop validation. The observations match the original report."
-        },
-        {
-          "id": "reply-025-03",
-          "author": "Sarah Connor",
-          "createdAt": "2026-09-01T10:00:00Z",
-          "text": "Additional testing shows desktop submission working with the same text, while the control scenario completes normally."
-        },
-        {
-          "id": "reply-025-04",
-          "author": "Mike Johnson",
-          "createdAt": "2026-09-01T10:30:00Z",
-          "text": "The logs point toward this cause: the mobile validator counts UTF-16 units differently from the backend character limit."
-        },
-        {
-          "id": "reply-025-05",
-          "author": "Priya Shah",
-          "createdAt": "2026-09-01T11:00:00Z",
-          "text": "Can someone verify this with another affected account before we change the configuration?"
-        }
-      ],
-      "resolution": "Use the same Unicode-aware character-counting rule in mobile and backend validation.",
-      "status": "resolved",
-      "sourceUrl": "https://teams.example/channels/mobile-experience/threads/teams-thread-025",
-      "sourceUpdatedAt": "2026-09-01T11:00:00Z"
-    }
-  ]
-  
+  {
+    "externalThreadId": "teams-thread-001",
+    "channelName": "Web Platform Support",
+    "question": "Why do impersonated users receive 403 on the home page?",
+    "author": "Aarav Mehta",
+    "createdAt": "2026-09-01T08:30:00Z",
+    "resolution": "Updated the ACL script to recognize 'impersonator' roles in the session context, which fixed the 403 error.",
+    "sourceUrl": "https://teams.example/channels/web-platform-support/threads/teams-thread-001",
+    "sourceUpdatedAt": "2026-09-02T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-001-01",
+        "author": "Nisha Rao",
+        "createdAt": "2026-09-01T09:00:00Z",
+        "text": "Hey Aarav, can you provide the exact steps to reproduce this? Are you impersonating via the admin console or the support dashboard?"
+      },
+      {
+        "id": "reply-001-02",
+        "author": "Aarav Mehta",
+        "createdAt": "2026-09-01T09:15:00Z",
+        "text": "I'm using the support dashboard. I click 'Impersonate', type in a standard user's email, and as soon as the page reloads, I get a big 403 Forbidden screen."
+      },
+      {
+        "id": "reply-001-03",
+        "author": "Raj Patel",
+        "createdAt": "2026-09-01T09:45:00Z",
+        "text": "I just checked the logs. It looks like the ACL script is stripping your admin roles during impersonation, but it's not assigning the target user's roles fast enough for the home page render."
+      },
+      {
+        "id": "reply-001-04",
+        "author": "Nisha Rao",
+        "createdAt": "2026-09-01T10:30:00Z",
+        "text": "Try clearing your cache and using the '?debug=true' flag on the URL so we can see the role array."
+      },
+      {
+        "id": "reply-001-05",
+        "author": "Aarav Mehta",
+        "createdAt": "2026-09-01T10:45:00Z",
+        "text": "Just tried that. The role array is completely empty! It says `roles: []`."
+      },
+      {
+        "id": "reply-001-06",
+        "author": "Raj Patel",
+        "createdAt": "2026-09-02T09:30:00Z",
+        "text": "Ah, I found the bug. The session context doesn't carry the 'impersonator' flag correctly. I've submitted a PR to update the ACL script."
+      },
+      {
+        "id": "reply-001-07",
+        "author": "Aarav Mehta",
+        "createdAt": "2026-09-02T10:00:00Z",
+        "text": "Awesome, just tested your PR on staging and it works perfectly. Thanks Raj!"
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-002",
+    "channelName": "Identity and Access",
+    "question": "Login loop started after enabling the new Entra ID identity provider",
+    "author": "Mike Johnson",
+    "createdAt": "2026-09-05T08:30:00Z",
+    "resolution": "Set the authentication cookie to SameSite=None with Secure enabled to prevent the cross-site identity-provider callback from dropping the cookie.",
+    "sourceUrl": "https://teams.example/channels/identity-and-access/threads/teams-thread-002",
+    "sourceUpdatedAt": "2026-09-05T13:00:00Z",
+    "replies": [
+      {
+        "id": "reply-002-01",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-05T08:35:00Z",
+        "text": "Just to add: this only happens for users on Safari or Chrome Incognito. Normal Chrome works fine."
+      },
+      {
+        "id": "reply-002-02",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-05T09:00:00Z",
+        "text": "Sounds like a cookie issue. Are our session cookies marked as SameSite=Strict?"
+      },
+      {
+        "id": "reply-002-03",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-05T09:10:00Z",
+        "text": "Yes, they are. But they've always been Strict. Why is it breaking now?"
+      },
+      {
+        "id": "reply-002-04",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-05T09:30:00Z",
+        "text": "Because Entra ID does a cross-site POST back to our domain. Safari and Incognito block third-party cookies by default, so if the cookie is Strict, it gets dropped during the redirect."
+      },
+      {
+        "id": "reply-002-05",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-05T10:00:00Z",
+        "text": "I changed it to SameSite=Lax. Let me test... Wait, now I'm getting a CSRF token mismatch error."
+      },
+      {
+        "id": "reply-002-06",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-05T10:30:00Z",
+        "text": "For an SSO callback, Lax might still drop the cookie on POST requests. You need to set it to SameSite=None AND add the Secure flag."
+      },
+      {
+        "id": "reply-002-07",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "text": "Tried SameSite=None with Secure=true. That fixed it! The login loop is gone in Safari. Pushing to prod."
+      },
+      {
+        "id": "reply-002-08",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-05T13:00:00Z",
+        "text": "Great job! I'll add a regression test for this specific flow."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-003",
+    "channelName": "File Services",
+    "question": "Large PDF attachments silently fail near the end of upload",
+    "author": "Raj Patel",
+    "createdAt": "2026-09-11T08:30:00Z",
+    "resolution": "Increased the Nginx client_max_body_size to 50M and aligned the gateway validation limits.",
+    "sourceUrl": "https://teams.example/channels/file-services/threads/teams-thread-003",
+    "sourceUpdatedAt": "2026-09-11T12:30:00Z",
+    "replies": [
+      {
+        "id": "reply-011-01",
+        "author": "Sarah Connor",
+        "createdAt": "2026-09-11T09:00:00Z",
+        "text": "Raj, how large are the PDFs? I'm able to upload a 2MB file without issues."
+      },
+      {
+        "id": "reply-011-02",
+        "author": "Raj Patel",
+        "createdAt": "2026-09-11T09:15:00Z",
+        "text": "They are around 15MB. The progress bar goes all the way to 100%, spins for a second, and then the file just doesn't appear in the list. No error message on the UI."
+      },
+      {
+        "id": "reply-011-03",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-11T09:30:00Z",
+        "text": "Check the Network tab. What HTTP status code is returning?"
+      },
+      {
+        "id": "reply-011-04",
+        "author": "Raj Patel",
+        "createdAt": "2026-09-11T09:45:00Z",
+        "text": "It's returning a 413 Payload Too Large. Ah, but the UI isn't handling that specific error code, which is why it fails silently."
+      },
+      {
+        "id": "reply-011-05",
+        "author": "Sarah Connor",
+        "createdAt": "2026-09-11T10:00:00Z",
+        "text": "Where is the 413 coming from? The Node app or the Nginx gateway?"
+      },
+      {
+        "id": "reply-011-06",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-11T10:15:00Z",
+        "text": "Definitely Nginx. I think default `client_max_body_size` is 1MB. Let me check the config."
+      },
+      {
+        "id": "reply-011-07",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-11T10:30:00Z",
+        "text": "Yep, it's set to 10MB in the gateway. I'll bump it to 50MB."
+      },
+      {
+        "id": "reply-011-08",
+        "author": "Raj Patel",
+        "createdAt": "2026-09-11T11:00:00Z",
+        "text": "Thanks Mike. Can someone also add an error handler in the React UI so 413s show an actual toast notification?"
+      },
+      {
+        "id": "reply-011-09",
+        "author": "Sarah Connor",
+        "createdAt": "2026-09-11T12:00:00Z",
+        "text": "I'll handle the UI toast. The upload limit is fixed now, tested with a 40MB file."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-004",
+    "channelName": "Notifications",
+    "question": "Users are receiving duplicate email notifications when a case is updated",
+    "author": "Priya Shah",
+    "createdAt": "2026-09-13T08:30:00Z",
+    "resolution": "Implemented idempotency keys based on event IDs so the email service ignores duplicate delivery attempts.",
+    "sourceUrl": "https://teams.example/channels/notifications/threads/teams-thread-004",
+    "sourceUpdatedAt": "2026-09-13T14:00:00Z",
+    "replies": [
+      {
+        "id": "reply-013-01",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-13T08:35:00Z",
+        "text": "Every time a case is marked 'Resolved', the customer gets two identical emails separated by about 30 seconds."
+      },
+      {
+        "id": "reply-013-02",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-13T09:00:00Z",
+        "text": "Is the webhook firing twice from the case system? Check the payload logs."
+      },
+      {
+        "id": "reply-013-03",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-13T09:15:00Z",
+        "text": "No, the webhook log only shows one event being dispatched."
+      },
+      {
+        "id": "reply-013-04",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-13T10:00:00Z",
+        "text": "I bet it's the Kafka consumer group. We scaled up the email workers yesterday. If a worker takes too long to generate the PDF attachment, it might not commit the offset in time, causing another worker to pick up the same message."
+      },
+      {
+        "id": "reply-013-05",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-13T10:30:00Z",
+        "text": "That makes sense. We can increase the `max.poll.interval.ms` so it doesn't time out."
+      },
+      {
+        "id": "reply-013-06",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-13T10:45:00Z",
+        "text": "We could, but that's a band-aid. We really need idempotency on the email sender. If we hash the event ID and store it in Redis for 24h, the second worker will just skip it."
+      },
+      {
+        "id": "reply-013-07",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-13T12:00:00Z",
+        "text": "I'll implement the Redis idempotency key. It's safer."
+      },
+      {
+        "id": "reply-013-08",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-13T14:00:00Z",
+        "text": "Fix is deployed. Checked the logs and we are successfully catching and ignoring the duplicate deliveries now!"
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-005",
+    "channelName": "Search Operations",
+    "question": "Global search keeps loading forever when a date filter is applied",
+    "author": "Daniel Kim",
+    "createdAt": "2026-09-07T08:30:00Z",
+    "resolution": "Added a composite index on (status, created_at) and implemented a 10-second query timeout.",
+    "sourceUrl": "https://teams.example/channels/search-operations/threads/teams-thread-005",
+    "sourceUpdatedAt": "2026-09-07T14:30:00Z",
+    "replies": [
+      {
+        "id": "reply-007-01",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-07T09:00:00Z",
+        "text": "I can reproduce this. If I search without a date, it returns in 200ms. If I add 'Last 7 days', the spinner just hangs."
+      },
+      {
+        "id": "reply-007-02",
+        "author": "Aarav Mehta",
+        "createdAt": "2026-09-07T09:30:00Z",
+        "text": "Can you run EXPLAIN ANALYZE on the generated SQL query?"
+      },
+      {
+        "id": "reply-007-03",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-07T09:45:00Z",
+        "text": "Wow, it's doing a sequential scan on a 50 million row table. It's ignoring the search index entirely."
+      },
+      {
+        "id": "reply-007-04",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-07T10:00:00Z",
+        "text": "We have an index on the date column though. Why isn't it using it?"
+      },
+      {
+        "id": "reply-007-05",
+        "author": "Aarav Mehta",
+        "createdAt": "2026-09-07T10:30:00Z",
+        "text": "Because the query filters on both `status` and `created_at`. Postgres planner thinks a seq scan is cheaper than combining two separate indices for this distribution. We need a composite index on `(status, created_at)`."
+      },
+      {
+        "id": "reply-007-06",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-07T11:00:00Z",
+        "text": "I'll create the composite index concurrently so we don't lock the table. Give me a few minutes."
+      },
+      {
+        "id": "reply-007-07",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-07T11:15:00Z",
+        "text": "While you do that, I'm adding a timeout to the search API. Hanging forever is terrible UX; it should at least error out after 10 seconds."
+      },
+      {
+        "id": "reply-007-08",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-07T14:00:00Z",
+        "text": "Index is built. The query is now using it and executing in 40ms!"
+      },
+      {
+        "id": "reply-007-09",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-07T14:30:00Z",
+        "text": "Awesome. The API timeout is merged too. We're fully resolved."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-006",
+    "channelName": "Backend Services",
+    "question": "Redis cache eviction policy causing high latency during peak hours",
+    "author": "Sarah Connor",
+    "createdAt": "2026-09-14T09:00:00Z",
+    "resolution": "Switched Redis eviction policy from allkeys-lru to volatile-lru and increased maxmemory to 4GB.",
+    "sourceUrl": "https://teams.example/channels/backend-services/threads/teams-thread-006",
+    "sourceUpdatedAt": "2026-09-14T11:00:00Z",
+    "replies": [
+      {
+        "id": "reply-006-01",
+        "author": "Raj Patel",
+        "createdAt": "2026-09-14T09:15:00Z",
+        "text": "I noticed the API response times spike to 800ms around 2 PM. The Redis metrics show a massive eviction rate."
+      },
+      {
+        "id": "reply-006-02",
+        "author": "Sarah Connor",
+        "createdAt": "2026-09-14T09:30:00Z",
+        "text": "We are currently using allkeys-lru. It might be throwing away active session tokens."
+      },
+      {
+        "id": "reply-006-03",
+        "author": "Raj Patel",
+        "createdAt": "2026-09-14T10:00:00Z",
+        "text": "Let's switch to volatile-lru so it only evicts keys with a TTL set. I'll also bump the memory limit up."
+      },
+      {
+        "id": "reply-006-04",
+        "author": "Sarah Connor",
+        "createdAt": "2026-09-14T10:45:00Z",
+        "text": "Deployed the change. Latency is back down to 40ms. Great catch."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-007",
+    "channelName": "Backend Services",
+    "question": "API latency spikes due to aggressive Redis cache evictions",
+    "author": "Mike Johnson",
+    "createdAt": "2026-09-15T14:00:00Z",
+    "resolution": "Configured Redis to use volatile-lru eviction and scaled the cluster size.",
+    "sourceUrl": "https://teams.example/channels/backend-services/threads/teams-thread-007",
+    "sourceUpdatedAt": "2026-09-15T16:00:00Z",
+    "replies": [
+      {
+        "id": "reply-007-01",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-15T14:20:00Z",
+        "text": "We are seeing intermittent 504 Gateway Timeouts. It looks like Redis is struggling to keep up with writes."
+      },
+      {
+        "id": "reply-007-02",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-15T14:40:00Z",
+        "text": "The memory limit is constantly maxed out, triggering continuous evictions. What policy are we on?"
+      },
+      {
+        "id": "reply-007-03",
+        "author": "Priya Shah",
+        "createdAt": "2026-09-15T15:10:00Z",
+        "text": "It's set to allkeys-random right now in the secondary cluster. We should match the primary and use volatile-lru."
+      },
+      {
+        "id": "reply-007-04",
+        "author": "Mike Johnson",
+        "createdAt": "2026-09-15T15:50:00Z",
+        "text": "Done. I also added another shard to the cluster. Error rates dropped to zero."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-008",
+    "channelName": "Backend Services",
+    "question": "High cache miss rate and slow response times on product catalog",
+    "author": "Nisha Rao",
+    "createdAt": "2026-09-16T10:00:00Z",
+    "resolution": "Adjusted Redis maxmemory-policy to volatile-lru to protect long-lived catalog items.",
+    "sourceUrl": "https://teams.example/channels/backend-services/threads/teams-thread-008",
+    "sourceUpdatedAt": "2026-09-16T12:00:00Z",
+    "replies": [
+      {
+        "id": "reply-008-01",
+        "author": "Aarav Mehta",
+        "createdAt": "2026-09-16T10:15:00Z",
+        "text": "The product catalog is taking over 2 seconds to load. Database CPU is at 90%."
+      },
+      {
+        "id": "reply-008-02",
+        "author": "Nisha Rao",
+        "createdAt": "2026-09-16T10:45:00Z",
+        "text": "It seems the catalog cache keys are being evicted almost immediately by Redis."
+      },
+      {
+        "id": "reply-008-03",
+        "author": "Aarav Mehta",
+        "createdAt": "2026-09-16T11:15:00Z",
+        "text": "Our eviction policy is dumping them because they don't have a TTL, but we need them to persist. Let's enforce volatile-lru."
+      },
+      {
+        "id": "reply-008-04",
+        "author": "Nisha Rao",
+        "createdAt": "2026-09-16T11:50:00Z",
+        "text": "Fix applied. The cache hit rate is back to 95% and DB CPU is stabilizing at 30%."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-009",
+    "channelName": "Platform Engineering",
+    "question": "Kubernetes Pods crashing with OOMKilled out of memory errors",
+    "author": "Daniel Kim",
+    "createdAt": "2026-09-10T08:30:00Z",
+    "resolution": "Optimized the memory buffer allocation and adjusted the garbage collection parameters for Memory leaks in the data pipeline.",
+    "sourceUrl": "https://teams.example/channels/platform-engineering/threads/teams-thread-009",
+    "sourceUpdatedAt": "2026-09-15T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-009-1",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-10T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 1. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:01:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 100 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-2",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-10T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 2. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:02:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 200 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-3",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-11T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 3. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:03:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 300 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-4",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-11T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 4. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:04:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 400 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-5",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-11T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 5. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:05:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 500 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-6",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-12T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 6. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:06:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 600 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-7",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-12T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 7. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:07:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 700 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-8",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-12T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 8. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:08:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 800 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-9",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-13T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 9. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:09:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 900 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-10",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-13T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 10. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:010:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1000 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-11",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-13T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 11. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:011:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1100 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-12",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-14T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 12. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:012:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1200 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-13",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-14T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 13. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:013:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1300 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-14",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-14T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 14. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:014:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1400 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-15",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-15T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 15. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:015:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1500 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-16",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-15T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 16. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:016:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1600 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-17",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-15T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 17. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:017:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1700 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-18",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-16T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 18. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:018:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1800 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-19",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-16T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 19. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:019:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1900 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-20",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-16T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 20. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:020:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2000 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-21",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-17T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 21. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:021:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2100 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-22",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-17T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 22. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:022:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2200 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-23",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-17T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 23. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:023:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2300 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-24",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-18T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 24. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:024:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2400 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-009-25",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-18T10:00:00Z",
+        "text": "This is a detailed technical reply regarding Memory leaks in the data pipeline. We have checked the logs and found several warning traces for step 25. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:025:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2500 records at a time instead of loading the entire dataset into RAM."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-010",
+    "channelName": "Platform Engineering",
+    "question": "Memory usage ballooning during heavy Kafka message ingestion",
+    "author": "Daniel Kim",
+    "createdAt": "2026-09-10T08:30:00Z",
+    "resolution": "Optimized the memory buffer allocation and adjusted the garbage collection parameters for JVM Heap exhaustion in the consumer service.",
+    "sourceUrl": "https://teams.example/channels/platform-engineering/threads/teams-thread-010",
+    "sourceUpdatedAt": "2026-09-15T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-010-1",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-10T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 1. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:01:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 100 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-2",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-10T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 2. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:02:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 200 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-3",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-11T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 3. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:03:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 300 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-4",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-11T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 4. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:04:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 400 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-5",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-11T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 5. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:05:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 500 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-6",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-12T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 6. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:06:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 600 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-7",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-12T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 7. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:07:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 700 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-8",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-12T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 8. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:08:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 800 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-9",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-13T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 9. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:09:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 900 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-10",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-13T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 10. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:010:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1000 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-11",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-13T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 11. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:011:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1100 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-12",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-14T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 12. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:012:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1200 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-13",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-14T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 13. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:013:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1300 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-14",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-14T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 14. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:014:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1400 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-15",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-15T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 15. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:015:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1500 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-16",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-15T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 16. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:016:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1600 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-17",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-15T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 17. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:017:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1700 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-18",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-16T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 18. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:018:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1800 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-19",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-16T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 19. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:019:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 1900 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-20",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-16T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 20. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:020:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2000 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-21",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-17T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 21. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:021:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2100 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-22",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-17T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 22. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:022:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2200 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-23",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-17T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 23. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:023:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2300 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-24",
+        "author": "Elena Garcia",
+        "createdAt": "2026-09-18T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 24. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:024:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2400 records at a time instead of loading the entire dataset into RAM."
+      },
+      {
+        "id": "reply-010-25",
+        "author": "Daniel Kim",
+        "createdAt": "2026-09-18T10:00:00Z",
+        "text": "This is a detailed technical reply regarding JVM Heap exhaustion in the consumer service. We have checked the logs and found several warning traces for step 25. The buffer allocation seems to spike momentarily during this phase, causing the orchestrator to deprioritize the job. We recommend reviewing the heap dump from timestamp 14:025:00 to cross-reference the memory leak signatures. Also, ensure that the background garbage collection is properly tuned for this environment. If we continue seeing this pattern, we might need to alter the persistent volume claim limits or refactor the batching mechanism to process 2500 records at a time instead of loading the entire dataset into RAM."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-011",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 11",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 11 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-011",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-011-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 11 is unresponsive."
+      },
+      {
+        "id": "reply-011-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-011-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-012",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 12",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 12 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-012",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-012-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 12 is unresponsive."
+      },
+      {
+        "id": "reply-012-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-012-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-013",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 13",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 13 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-013",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-013-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 13 is unresponsive."
+      },
+      {
+        "id": "reply-013-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-013-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-014",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 14",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 14 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-014",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-014-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 14 is unresponsive."
+      },
+      {
+        "id": "reply-014-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-014-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-015",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 15",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 15 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-015",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-015-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 15 is unresponsive."
+      },
+      {
+        "id": "reply-015-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-015-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-016",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 16",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 16 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-016",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-016-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 16 is unresponsive."
+      },
+      {
+        "id": "reply-016-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-016-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-017",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 17",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 17 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-017",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-017-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 17 is unresponsive."
+      },
+      {
+        "id": "reply-017-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-017-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-018",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 18",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 18 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-018",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-018-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 18 is unresponsive."
+      },
+      {
+        "id": "reply-018-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-018-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-019",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 19",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 19 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-019",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-019-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 19 is unresponsive."
+      },
+      {
+        "id": "reply-019-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-019-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-020",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 20",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 20 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-020",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-020-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 20 is unresponsive."
+      },
+      {
+        "id": "reply-020-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-020-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-021",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 21",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 21 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-021",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-021-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 21 is unresponsive."
+      },
+      {
+        "id": "reply-021-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-021-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-022",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 22",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 22 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-022",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-022-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 22 is unresponsive."
+      },
+      {
+        "id": "reply-022-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-022-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-023",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 23",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 23 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-023",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-023-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 23 is unresponsive."
+      },
+      {
+        "id": "reply-023-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-023-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-024",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 24",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 24 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-024",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-024-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 24 is unresponsive."
+      },
+      {
+        "id": "reply-024-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-024-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  },
+  {
+    "externalThreadId": "teams-thread-025",
+    "channelName": "General Support",
+    "question": "General troubleshooting ticket regarding system module 25",
+    "author": "Support Bot",
+    "createdAt": "2026-09-17T08:00:00Z",
+    "resolution": "Restarted module 25 and cleared the local cache.",
+    "sourceUrl": "https://teams.example/channels/support/threads/teams-thread-025",
+    "sourceUpdatedAt": "2026-09-17T10:00:00Z",
+    "replies": [
+      {
+        "id": "reply-025-01",
+        "author": "User",
+        "createdAt": "2026-09-17T08:15:00Z",
+        "text": "Module 25 is unresponsive."
+      },
+      {
+        "id": "reply-025-02",
+        "author": "Admin",
+        "createdAt": "2026-09-17T09:00:00Z",
+        "text": "I have initiated a rolling restart for the affected service."
+      },
+      {
+        "id": "reply-025-03",
+        "author": "User",
+        "createdAt": "2026-09-17T09:30:00Z",
+        "text": "It's working now, thank you."
+      }
+    ]
+  }
+]
