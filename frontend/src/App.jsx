@@ -1,121 +1,144 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { MessageSquare, LayoutList, Download, Settings, Brain, Search, Sparkles, History, CheckCircle } from 'lucide-react';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app-layout">
+      {/* Sidebar */}
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <Brain className="logo-icon" size={28} />
+          <h2>Knowledge Assistant</h2>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        <nav className="sidebar-nav">
+          <a href="#" className="nav-item active">
+            <MessageSquare size={20} />
+            <span>Ask</span>
+          </a>
+          <a href="#" className="nav-item">
+            <LayoutList size={20} />
+            <span>Threads</span>
+          </a>
+          <a href="#" className="nav-item">
+            <Download size={20} />
+            <span>Import</span>
+          </a>
+          <a href="#" className="nav-item">
+            <Settings size={20} />
+            <span>Settings</span>
+          </a>
+        </nav>
+      </aside>
 
-      <div className="ticks"></div>
+      {/* Main Content */}
+      <main className="main-content">
+        <div className="search-section">
+          <h1 className="search-heading">Ask the knowledge base</h1>
+          <p className="search-subheading">Search across historical discussion threads using semantic similarity</p>
+          <div className="search-container">
+            <div className="search-input-wrapper">
+              <Search className="search-icon" size={20} />
+              <input 
+                type="text" 
+                className="search-input" 
+                placeholder="Search..." 
+              />
+            </div>
+            <button className="create-button">Create</button>
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <div className="answer-box">
+            <div className="answer-box-header">
+              <span className="answer-title">
+                <Sparkles size={20} className="header-icon" />
+                Answer
+              </span>
+              <span className="answer-meta">
+                <History size={14} className="meta-icon" />
+                Answer generated from 3 previous discussions
+              </span>
+            </div>
+            <div className="answer-box-content">
+              <p>This is a dummy text representing the generated answer. The system analyzed previous threads and compiled this response to demonstrate how the UI will present the synthesized knowledge to the user.</p>
+            </div>
+            <div className="answer-box-footer">
+              <span className="sources-label">Sources:</span>
+              <div className="sources-list">
+                <span className="source-badge">1</span>
+                <span className="source-badge">2</span>
+                <span className="source-badge">3</span>
+              </div>
+            </div>
+          </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+          <hr className="divider" />
+
+          <div className="related-section">
+            <h2 className="related-heading">Related conversations</h2>
+            <p className="related-subheading">Previous discussion threads that are semantically similar to your question</p>
+            
+            <div className="related-cards-container">
+              {/* Box 1 */}
+              <div className="related-card">
+                <div className="related-card-header">
+                  <div className="related-card-title-container">
+                    <h3>How to deploy the application to AWS?</h3>
+                    <span className="related-card-date">Oct 12, 2025</span>
+                  </div>
+                  <div className="resolved-badge">
+                    Mark as resolved <CheckCircle size={16} />
+                  </div>
+                </div>
+                <p className="related-card-desc">This thread discusses the step-by-step process of setting up Docker containers and deploying the backend to AWS ECS. It also covers load balancing setup.</p>
+                <hr className="card-divider" />
+                <div className="card-footer">
+                  <span className="replies-count">7 replies</span>
+                  <button className="view-source-btn">View source</button>
+                </div>
+              </div>
+
+              {/* Box 2 */}
+              <div className="related-card">
+                <div className="related-card-header">
+                  <div className="related-card-title-container">
+                    <h3>Database migration issues on production</h3>
+                    <span className="related-card-date">Sep 04, 2025</span>
+                  </div>
+                  <div className="resolved-badge">
+                    Mark as resolved <CheckCircle size={16} />
+                  </div>
+                </div>
+                <p className="related-card-desc">A detailed debugging session resolving timeout issues during PostgreSQL migrations. Includes the specific SQL scripts and timeout configurations used to fix it.</p>
+                <hr className="card-divider" />
+                <div className="card-footer">
+                  <span className="replies-count">8 replies</span>
+                  <button className="view-source-btn">View source</button>
+                </div>
+              </div>
+
+              {/* Box 3 */}
+              <div className="related-card">
+                <div className="related-card-header">
+                  <div className="related-card-title-container">
+                    <h3>Implementing SSO with Entra ID</h3>
+                    <span className="related-card-date">Aug 21, 2025</span>
+                  </div>
+                  <div className="resolved-badge">
+                    Mark as resolved <CheckCircle size={16} />
+                  </div>
+                </div>
+                <p className="related-card-desc">Contains the exact MSAL configuration needed for Single Sign-On integration, along with troubleshooting steps for invalid redirect URIs and token validation errors.</p>
+                <hr className="card-divider" />
+                <div className="card-footer">
+                  <span className="replies-count">10 replies</span>
+                  <button className="view-source-btn">View source</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
   )
 }
 
