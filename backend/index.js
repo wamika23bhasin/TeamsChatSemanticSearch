@@ -29,6 +29,10 @@ app.get('/api/test-db', async (req, res) => {
 const searchRouter = require('./src/search');
 app.use('/api/v1/knowledge/search', searchRouter);
 
+// Threads route
+const threadsRouter = require('./src/threads');
+app.use('/api/v1/knowledge/threads', threadsRouter);
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });

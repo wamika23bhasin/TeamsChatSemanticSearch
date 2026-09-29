@@ -58,6 +58,7 @@ router.post('/', async (req, res) => {
         ms.max_similarity AS similarity
       FROM thread_max_scores ms
       JOIN teams_threads t ON t.id = ms.thread_id
+      WHERE ms.max_similarity >= 0.65
       ORDER BY ms.max_similarity DESC
       LIMIT 3;
     `;

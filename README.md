@@ -55,8 +55,11 @@ When a user types a query into the UI, we instantly convert their query into an 
 **Where is this data saved?**
 The embeddings are saved directly inside PostgreSQL in the `teams_thread_chunks` table, inside a special column named `embedding` (which uses the `vector(1024)` data type). This means the text chunks and their mathematical representations live side-by-side in the exact same row.
 
-**How does the query process work under the hood?**
-1. **On-the-fly Embedding**: Every single time a search is performed, the backend intercepts the text and calls the local Ollama model to generate a fresh 1024D vector specifically for that exact query.
-2. **PostgreSQL Comparison**: The backend passes this new vector into a SQL query using the `pgvector` extension.
+**How does the POST API Search process work under the hood?**
+When the frontend sends a request to `POST /api/v1/knowledge/search`, the endpoint (`backend/src/search.js`) executes the following semantic logic:
+1. **On-the-fly Embedding**: The API intercepts the text query and immediately calls the local Ollama model to generate a fresh 1024D vector specifically for that exact question.
+2. **PostgreSQL Comparison**: The API then injects this new vector into a SQL query utilizing the `pgvector` extension.
 3. **The `<=>` Operator**: We use `pgvector`'s special `<=>` operator, which calculates the **Cosine Distance** between the query's vector and the stored chunk's vector. 
-4. **Scoring**: Because Cosine Distance measures how far apart they are, we subtract it from 1 (`1 - distance`) to calculate the **Cosine Similarity**. This gives us a percentage score (like `0.74` for a 74% match). The database sorts by this score and instantly returns the most relevant threads!
+4. **Scoring**: Because Cosine Distance measures how far apart they are, we subtract it from 1 (`1 - distance`) to calculate the **Cosine Similarity**. This gives us a percentage score (like `0.74` for a 74% match).
+5. **Deduplication (`MAX` grouping)**: If a massive thread was broken into 12 chunks, we don't want to spam the search results with 3 chunks all from the exact same thread. The SQL query uses `GROUP BY thread_id` and `MAX(similarity)` to flatten the chunks down, ensuring a thread is only returned exactly *once* using the score of its highest-matching chunk.
+6. **Threshold Filtering**: We enforce a strict `WHERE max_similarity >= 0.65` filter. If the AI is only 64% confident (or less) that a thread is relevant, the database drops it completely, preventing unrelated hallucinated answers from showing up in the UI. The final top 3 remaining threads are then returned to the frontend!
