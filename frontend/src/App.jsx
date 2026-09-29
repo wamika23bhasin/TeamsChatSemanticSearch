@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { MessageSquare, LayoutList, Download, Settings, Brain, Search, Sparkles, History, CheckCircle, Loader2, X, User, AlertCircle } from 'lucide-react';
+import { MessageSquare, LayoutList, Download, Settings, Brain, Search, Sparkles, History, CheckCircle, Loader2, X, User, AlertCircle, Lightbulb } from 'lucide-react';
 import './App.css'
 
 function App() {
@@ -118,15 +118,15 @@ function App() {
             {hasSearched && (
               <>
                 {loading || results.length > 0 ? (
+                  <>
                   <div className="answer-box">
-                    <div className="answer-box-header">
-                      <span className="answer-title">
-                        <Sparkles size={20} className="header-icon" />
-                        Answer
+                    <div className="answer-box-header" style={{ justifyContent: 'flex-start', gap: '12px', alignItems: 'center' }}>
+                      <span className="answer-title" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '15px', fontWeight: 'bold' }}>
+                        <Lightbulb size={20} className="header-icon" style={{ color: '#0066cc' }} />
+                        Suggested Answer
                       </span>
-                      <span className="answer-meta">
-                        <History size={14} className="meta-icon" />
-                        Answer generated from {results.length} previous discussions
+                      <span className="answer-meta" style={{ fontSize: '11px', color: '#4b5563', fontWeight: '500', backgroundColor: '#f3f4f6', padding: '4px 10px', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+                        Generated from previous conversations
                       </span>
                     </div>
                     <div className="answer-box-content">
@@ -151,23 +151,64 @@ function App() {
                         </ul>
                       )}
                     </div>
-                    <div className="answer-box-footer">
-                      <span className="sources-label">Sources:</span>
-                      <div className="sources-list">
-                        {results.map((result, i) => (
-                          <span 
-                            key={i} 
-                            className="source-badge"
-                            onClick={(e) => openThread(result, e)}
-                            style={{ cursor: 'pointer' }}
-                            title={`View Thread ${i + 1}`}
-                          >
-                            {i + 1}
-                          </span>
-                        ))}
+                    <div className="answer-box-footer" style={{ justifyContent: 'space-between' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <span className="sources-label">Sources:</span>
+                        <div className="sources-list">
+                          {results.map((result, i) => (
+                            <span 
+                              key={i} 
+                              className="source-badge"
+                              onClick={(e) => openThread(result, e)}
+                              style={{ cursor: 'pointer' }}
+                              title={`View Thread ${i + 1}`}
+                            >
+                              {i + 1}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#6b7280', backgroundColor: '#f9fafb', padding: '4px 8px', borderRadius: '4px', border: '1px solid #e5e7eb' }}>
+                        <AlertCircle size={12} />
+                        AI-generated answer - verify against source conversations
                       </div>
                     </div>
                   </div>
+                  
+                  <hr className="divider" />
+                  
+                  <div className="related-section">
+                    <h2 className="related-heading">Related conversations</h2>
+                    <p className="related-subheading">More discussions from your team that might help</p>
+                    
+                    <div className="related-cards-container">
+                      {results.map((result, index) => (
+                        <div className="related-card" key={result.id} id={`source-card-${index + 1}`}>
+                          <div className="related-card-header">
+                            <div className="related-card-title-container">
+                              <h3>{result.question}</h3>
+                              <span className="related-card-date">
+                                Match: {Math.round(result.similarity * 100)}%
+                              </span>
+                            </div>
+                          </div>
+                          <p className="related-card-desc">{result.resolution || 'No resolution provided for this thread.'}</p>
+                          <hr className="card-divider" />
+                          <div className="card-footer">
+                            <span className="replies-count">Source {index + 1}</span>
+                            <a 
+                              href="#"
+                              onClick={(e) => openThread(result, e)} 
+                              className="view-source-btn"
+                            >
+                              View source
+                            </a>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  </>
                 ) : (
                   <div className="no-results-message" style={{ marginTop: '30px', padding: '24px', backgroundColor: '#fef2f2', border: '1px solid #f87171', borderRadius: '8px', color: '#991b1b', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <h3 style={{ margin: '0', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '16px' }}>
