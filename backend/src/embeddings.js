@@ -2,7 +2,7 @@ const db = require('../db');
 
 async function generateEmbeddings() {
   const model = 'mxbai-embed-large';
-  const ollamaUrl = process.env.OLLAMA_URL || 'http://localhost:11435';
+  const ollamaUrl = process.env.OLLAMA_HOST || 'http://localhost:11435';
   
   try {
     console.log(`Using Ollama at ${ollamaUrl} and model ${model}`);
@@ -37,12 +37,13 @@ async function generateEmbeddings() {
       const chunk = chunks[i];
       console.log(`Processing chunk ${i + 1}/${chunks.length}...`);
       
-      const response = await fetch(`${ollamaUrl}/api/embeddings`, {
+      const response = await fetch(`${ollamaUrl}/api/embed`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: model,
-          prompt: chunk.content
+          input: chunk.content,
+          truncate: true
         })
       });
       
@@ -53,8 +54,8 @@ async function generateEmbeddings() {
       
       const data = await response.json();
       
-      if (data.embedding) {
-        const embeddingString = `[${data.embedding.join(',')}]`;
+      if (data.embeddings && data.embeddings.length > 0) {
+        const embeddingString = `[${data.embeddings[0].join(',')}]`;
         
         await db.query(
           'UPDATE teams_thread_chunks SET embedding = $1, embedding_model = $2 WHERE id = $3',

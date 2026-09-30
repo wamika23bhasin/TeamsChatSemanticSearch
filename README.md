@@ -2,6 +2,48 @@
 
 This project is a full-stack **Retrieval-Augmented Generation (RAG)** application. It allows users to search through historical discussion threads using **semantic similarity** (understanding the meaning of a question, rather than just matching exact keywords). 
 
+## Getting Started
+
+### 1. Environment Configuration
+Create a `.env` file in the root directory. If you are running the Node.js backend locally (on your host machine) rather than inside Docker, configure it as follows:
+
+```env
+# Database connection (mapped from docker-compose port 5433)
+DB_HOST=localhost
+DB_PORT=5433
+DB_NAME=teams_knowledge_db
+DB_USER=teams_app
+DB_PASSWORD=<your_db_password>
+
+# Ollama connection (running via Docker on 11435)
+OLLAMA_HOST=http://localhost:11435
+
+EMBEDDING_MODEL=mxbai-embed-large
+GENERATION_MODEL=qwen3:1.7b
+```
+
+### 2. Start Infrastructure
+Run the database and Ollama containers in the background using Docker Compose:
+```bash
+docker compose up -d
+```
+
+### 3. Start Backend & Frontend
+Start the Express backend (runs on port 5001):
+```bash
+cd backend
+npm install
+node index.js
+```
+Start the React frontend (runs on port 3000):
+```bash
+cd frontend
+npm install
+npm run start
+```
+
+---
+
 Below is a detailed log of the project's development steps and an explanation of the core concepts used to build it.
 
 ---
@@ -34,6 +76,14 @@ Below is a detailed log of the project's development steps and an explanation of
 
 ## Core Concepts: What and Why
 
+```mermaid
+flowchart LR
+    A[Raw Teams Threads] --> B[Data Chunking]
+    B -->|Splits into| C[Text Chunks]
+    C --> D[Ollama Embedding Model]
+    D -->|Generates 1024D Vector| E[(PostgreSQL pgvector)]
+```
+
 ### 1. Data Chunking
 **What are we doing?** 
 We take a massive block of text (like a long thread with 20 replies) and break it down into smaller, self-contained sections (chunks). We format these chunks cleanly (e.g., separating the Question, Replies, and Resolution).
@@ -62,4 +112,104 @@ When the frontend sends a request to `POST /api/v1/knowledge/search`, the endpoi
 3. **The `<=>` Operator**: We use `pgvector`'s special `<=>` operator, which calculates the **Cosine Distance** between the query's vector and the stored chunk's vector. 
 4. **Scoring**: Because Cosine Distance measures how far apart they are, we subtract it from 1 (`1 - distance`) to calculate the **Cosine Similarity**. This gives us a percentage score (like `0.74` for a 74% match).
 5. **Deduplication (`MAX` grouping)**: If a massive thread was broken into 12 chunks, we don't want to spam the search results with 3 chunks all from the exact same thread. The SQL query uses `GROUP BY thread_id` and `MAX(similarity)` to flatten the chunks down, ensuring a thread is only returned exactly *once* using the score of its highest-matching chunk.
-6. **Threshold Filtering**: We enforce a strict `WHERE max_similarity >= 0.65` filter. If the AI is only 64% confident (or less) that a thread is relevant, the database drops it completely, preventing unrelated hallucinated answers from showing up in the UI. The final top 3 remaining threads are then returned to the frontend!
+6. **Threshold Filtering**: We enforce a strict `WHERE max_similarity >=50` filter. If the AI is only 64% confident (or less) that a thread is relevant, the database drops it completely, preventing unrelated hallucinated answers from showing up in the UI. The final top 3 remaining threads are then returned to the frontend!
+
+### 4. How R.A.G. is Implemented in Code
+RAG stands for **Retrieval-Augmented Generation**. Here is exactly where and how each step occurs in this project's codebase:
+
+```mermaid
+flowchart TD
+    User([User Query]) --> R[R - Retrieval]
+    R -->|Vectorize Query| O[Ollama Embeddings]
+    O -->|Query Vector| DB[(PostgreSQL pgvector)]
+    DB -->|Cosine Similarity Search| Top[Top 3 Matches]
+    
+    Top --> A[A - Augmentation]
+    User --> A
+    A -->|Combine Context & Query| Prompt[Massive Prompt string]
+    
+    Prompt --> G[G - Generation]
+    G -->|Send Prompt| Gen[Ollama Text Model]
+    Gen -->|Generate Response| Final([Final Answer])
+```
+
+#### R - Retrieval (`backend/src/search.js`)
+First, we **retrieve** the relevant information. We convert the user's query into an embedding vector, and ask the database to find the closest matching conversation chunks using vector similarity (`<=>`).
+
+```javascript
+// 1. Vectorize the user's query
+const response = await fetch(`${ollamaUrl}/api/embeddings`, {
+  method: 'POST',
+  body: JSON.stringify({ model: 'mxbai-embed-large', prompt: query })
+});
+const queryEmbedding = `[${data.embedding.join(',')}]`;
+
+// 2. Retrieve top matches from PostgreSQL using Vector Cosine Distance (<=>)
+const sql = `
+  WITH ranked_chunks AS (
+      SELECT
+          t.id,
+          c.content,
+          1 - (c.embedding <=> $1::vector) AS similarity,
+          ROW_NUMBER() OVER (
+              PARTITION BY t.id
+              ORDER BY c.embedding <=> $1::vector
+          ) AS chunk_rank
+      FROM teams_thread_chunks c
+      JOIN teams_threads t ON t.id = c.thread_id
+      WHERE c.embedding IS NOT NULL
+  )
+  SELECT * FROM ranked_chunks 
+  WHERE chunk_rank = 1 AND similarity >= $2 
+  ORDER BY similarity DESC LIMIT 3;
+`;
+const result = await db.query(sql, [queryEmbedding, 0.50]);
+const topThreads = result.rows; // This is our retrieved data!
+```
+
+#### A - Augmentation (`backend/src/generateAnswer.js`)
+Once we have our retrieved data, we **augment** the user's question. This simply means we build a large text prompt that contains both the user's question *and* the text of the retrieved conversations, plus instructions on how to behave.
+
+```javascript
+// We take the retrieved database rows and format them into a single long string
+const context = results
+  .map((result, index) => {
+    return `Source ${index + 1}\nThread: ${result.external_thread_id}\nConversation:\n${result.content}`;
+  }).join("\n---\n");
+
+// We build a massive prompt combining instructions, context, and the query
+const prompt = `
+You are a knowledge assistant for an engineering team.
+Answer the user's question using only the source conversations provided below.
+
+USER QUESTION:
+${query}
+
+SOURCE CONVERSATIONS:
+${context}
+
+ANSWER:
+`.trim();
+```
+
+#### G - Generation (`backend/src/generateAnswer.js`)
+Finally, we send our fully augmented prompt to the AI (Ollama) so it can read the context and **generate** a readable answer.
+
+```javascript
+// Send the massive augmented prompt to our generation model (e.g. qwen3:1.7b)
+const response = await fetch(`${OLLAMA_HOST}/api/generate`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    model: GENERATION_MODEL,
+    prompt: prompt, // This contains the augmented instructions + context + query
+    stream: false,
+    options: {
+      temperature: 0.2, // Low temperature for factual consistency
+    },
+  }),
+});
+
+const data = await response.json();
+const answer = data.response; // The AI's generated answer!
+```

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const { generateAnswer } = require('./generateAnswer');
 
 router.post('/', async (req, res) => {
   try {
@@ -10,7 +11,7 @@ router.post('/', async (req, res) => {
     }
 
     const model = 'mxbai-embed-large';
-    const ollamaUrl = process.env.OLLAMA_URL || 'http://localhost:11435';
+    const ollamaUrl = process.env.OLLAMA_HOST || 'http://localhost:11435';
 
     // 1. Generate an embedding for the incoming query
     const response = await fetch(`${ollamaUrl}/api/embeddings`, {
@@ -30,43 +31,74 @@ router.post('/', async (req, res) => {
     
     const queryEmbedding = `[${data.embedding.join(',')}]`;
 
-    // 2 & 3. Compare with stored chunks, group by thread, and get the max similarity
-    // The `<=>` operator computes cosine distance, so `1 - distance` gives cosine similarity.
+    const minSimilarity = 0.50; // Threshold
     const sql = `
-      WITH chunk_scores AS (
-        SELECT 
-          thread_id,
-          (1 - (embedding <=> $1::vector)) AS similarity
-        FROM teams_thread_chunks
-        WHERE embedding IS NOT NULL
-      ),
-      thread_max_scores AS (
-        SELECT 
-          thread_id,
-          MAX(similarity) AS max_similarity
-        FROM chunk_scores
-        GROUP BY thread_id
+      WITH ranked_chunks AS (
+          SELECT
+              t.id,
+              t.external_thread_id,
+              t.question,
+              t.resolution,
+              t.source_url,
+              t.source_updated_at,
+              t.messages,
+              c.content,
+              c.chunk_index,
+              1 - (c.embedding <=> $1::vector) AS similarity,
+              ROW_NUMBER() OVER (
+                  PARTITION BY t.id
+                  ORDER BY c.embedding <=> $1::vector
+              ) AS chunk_rank
+          FROM teams_thread_chunks c
+          JOIN teams_threads t
+            ON t.id = c.thread_id
+          WHERE c.embedding IS NOT NULL
       )
-      -- 4 & 5. Include similarity, question, resolution, and source URL, limit to top 3
-      SELECT 
-        t.id,
-        t.question,
-        t.resolution,
-        t.source_url,
-        t.source_updated_at,
-        t.messages,
-        ms.max_similarity AS similarity
-      FROM thread_max_scores ms
-      JOIN teams_threads t ON t.id = ms.thread_id
-      WHERE ms.max_similarity >= 0.65
-      ORDER BY ms.max_similarity DESC
+      SELECT *
+      FROM ranked_chunks
+      WHERE chunk_rank = 1
+        AND similarity >= $2
+      ORDER BY similarity DESC
       LIMIT 3;
     `;
 
-    const result = await db.query(sql, [queryEmbedding]);
+    const result = await db.query(sql, [queryEmbedding, minSimilarity]);
+    const topThreads = result.rows;
+
+    // Temporary debugging log
+    console.table(
+      topThreads.map(thread => ({
+        thread: thread.external_thread_id,
+        similarity: Number(thread.similarity).toFixed(4)
+      }))
+    );
+
+    if (topThreads.length === 0) {
+      return res.json({
+        answer: "I could not find enough information in previous conversations to answer your question.",
+        sources: [],
+        results: []
+      });
+    }
+
+    console.log(
+      "Retrieved threads for augmentation:",
+      topThreads.map(thread => ({
+        externalThreadId: thread.external_thread_id,
+        question: thread.question,
+        chunkIndex: thread.chunk_index,
+        similarity: thread.similarity,
+        hasContent: Boolean(thread.content),
+        contentLength: thread.content?.length
+      }))
+    );
+
+    const generatedAnswer = await generateAnswer(query, topThreads);
 
     return res.json({
-      results: result.rows
+      answer: generatedAnswer,
+      sources: topThreads,
+      results: topThreads
     });
   } catch (error) {
     console.error('Search error:', error);

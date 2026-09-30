@@ -7,6 +7,9 @@ function App() {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
+  const [answer, setAnswer] = useState("");
+  const [sources, setSources] = useState([]);
+
   const [hasSearched, setHasSearched] = useState(false);
   const [selectedThread, setSelectedThread] = useState(null);
   
@@ -47,9 +50,13 @@ function App() {
       
       const data = await response.json();
       setResults(data.results || []);
+      setAnswer(data.answer || "");
+      setSources(data.sources || []);
     } catch (error) {
       console.error('Search error:', error);
       setResults([]);
+      setAnswer("");
+      setSources([]);
     } finally {
       setLoading(false);
     }
@@ -117,7 +124,12 @@ function App() {
 
             {hasSearched && (
               <>
-                {loading || results.length > 0 ? (
+                {loading ? (
+                  <div style={{ marginTop: '40px', padding: '20px', display: 'flex', alignItems: 'center', gap: '12px', color: '#6b7280' }}>
+                    <Loader2 className="animate-spin" size={24} />
+                    <span style={{ fontSize: '15px', fontWeight: '500' }}>Analyzing threads and generating answer...</span>
+                  </div>
+                ) : results.length > 0 ? (
                   <>
                   <div className="answer-box">
                     <div className="answer-box-header" style={{ justifyContent: 'flex-start', gap: '12px', alignItems: 'center' }}>
@@ -129,45 +141,43 @@ function App() {
                         Generated from previous conversations
                       </span>
                     </div>
-                    <div className="answer-box-content">
-                      {loading ? (
-                        <p>Analyzing threads and extracting remedies...</p>
-                      ) : (
-                        <ul className="remedies-list" style={{ margin: 0, paddingLeft: '1.5rem', lineHeight: '1.6' }}>
-                          {results.map((result, index) => (
-                            <li key={result.id} style={{ marginBottom: '0.5rem' }}>
-                              <span style={{ float: 'right', fontWeight: '600', color: '#6b7280', marginLeft: '12px', fontSize: '12px', backgroundColor: '#f3f4f6', padding: '2px 8px', borderRadius: '12px' }}>
-                                {Math.round(result.similarity * 100)}% Match
-                              </span>
-                              <strong 
-                                onClick={(e) => openThread(result, e)}
-                                style={{ cursor: 'pointer', color: 'blue', textDecoration: 'underline' }}
-                                title={`View Thread ${index + 1}`}
-                              >
-                                Source {index + 1}:
-                              </strong> {result.resolution || 'No explicit resolution documented.'}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                    <div className="answer-box-content" style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>
+                      <p style={{ margin: 0 }}>{answer}</p>
                     </div>
                     <div className="answer-box-footer" style={{ justifyContent: 'space-between' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      {/* <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <span className="sources-label">Sources:</span>
                         <div className="sources-list">
-                          {results.map((result, i) => (
-                            <span 
-                              key={i} 
-                              className="source-badge"
-                              onClick={(e) => openThread(result, e)}
-                              style={{ cursor: 'pointer' }}
-                              title={`View Thread ${i + 1}`}
-                            >
-                              {i + 1}
-                            </span>
-                          ))}
+                          {sources.map((source, i) => {
+                            if (source.source_url) {
+                              return (
+                                <a 
+                                  key={i} 
+                                  href={source.source_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="source-badge"
+                                  style={{ cursor: 'pointer', textDecoration: 'none' }}
+                                  title={`View Thread ${i + 1}`}
+                                >
+                                  {i + 1}
+                                </a>
+                              );
+                            }
+                            return (
+                              <span 
+                                key={i} 
+                                className="source-badge"
+                                onClick={(e) => openThread(source, e)}
+                                style={{ cursor: 'pointer' }}
+                                title={`View Thread ${i + 1}`}
+                              >
+                                {i + 1}
+                              </span>
+                            );
+                          })}
                         </div>
-                      </div>
+                      </div> */}
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: '#6b7280', backgroundColor: '#f9fafb', padding: '4px 8px', borderRadius: '4px', border: '1px solid #e5e7eb' }}>
                         <AlertCircle size={12} />
                         AI-generated answer - verify against source conversations
